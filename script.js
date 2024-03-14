@@ -40,11 +40,11 @@ function displayWeather(data){
     tempDivInfo.innerHTML="";
 }
 function displayWeather(data){
-    if(data.cod ==='404'){
+    if(data.cod === '404'){
         weatherInfoDiv.innnerHTML=`<p>${data.message}</p>`;
     }else {
         const cityname = data.name;
-        const temp=Math.round(data.main.temp -273.15);
+        const temp=Math.round(data.main.temp - 273.15);
         const description=data.weather[0].description;
         const icon=data.weather[0].icon;
         const icon_url=`http://openweathermap.org/img/wn/${icon}@2x.png`;
