@@ -36,6 +36,8 @@ let weather = {
   },
   search: function () {
     this.fetchWeather(document.querySelector(".search-bar").value);
+    this.fetchWeather(searchBar.value);
+    searchBar.value = "";
   },
 };
 
@@ -52,3 +54,4 @@ document
   });
 
 weather.fetchWeather("Galle");
+

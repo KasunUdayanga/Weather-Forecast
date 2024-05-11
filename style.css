@@ -8,8 +8,8 @@ body {
     background: #222;
     background-image: url('OIP.jpeg');
     font-size: 120%;
+    background-size: cover;
   }
-  
   .card {
     background: #000000d0;
     color: white;
@@ -19,13 +19,11 @@ body {
     max-width: 420px;
     margin: 1em;
   }
-  
   .search {
     display: flex;
     align-items: center;
     justify-content: center;
   }
-  
   button {
     margin: 0.5em;
     border-radius: 50%;
@@ -38,7 +36,6 @@ body {
     cursor: pointer;
     transition: 0.2s ease-in-out;
   }
-  
   input.search-bar {
     border: none;
     outline: none;
@@ -50,32 +47,26 @@ body {
     font-size: 105%;
     width: calc(100% - 100px);
   }
-  
   button:hover {
     background: #7c7c7c6b;
   }
-  
   h1.temp {
     margin: 0;
     margin-bottom: 0.4em;
   }
-  
   .flex {
     display: flex;
     align-items: center;
   }
-  
   .description {
     text-transform: capitalize;
     margin-left: 8px;
   }
-  
   .weather.loading {
     visibility: hidden;
     max-height: 20px;
     position: relative;
   }
-  
   .weather.loading:after {
     visibility: visible;
     content: "Loading...";
@@ -84,7 +75,6 @@ body {
     top: 0;
     left: 20px;
   }
-  
   .footer{
     position:absolute; padding: 0.4rem !important;margin: 10px;
     border-color: inherit;
@@ -93,6 +83,6 @@ body {
     background-color: #212529 !important;
   }
   .footer h4{
-    color: white; 
+    color: white;
     text-align: center;
   }
