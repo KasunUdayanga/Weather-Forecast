@@ -1,81 +1,55 @@
-function getWeather(){
-    const apikey = '47c6a200841b1d4a6720b31e29dff310';
-    const city = document.getElementById('city').value;
-    if (!city) {
-        alert('Please enter city name');
-        return;
-    }
-    const currenturl =  `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apikey}`;
-    //const forecasturl = `https://pro.openweathermap.org/data/2.5/forecast/hourly?q=${city}&appid=${apikey}`;
-    fetch(currenturl)
-            .then(response => response.json())
-            .then(data =>{
-                    displayWeather(data);
-   })
-            .catch(err =>{
-                console.log(err);
-                alert("Error fetching weather");
-   });
-
-//    fetch(forecasturl)
-//             .then(response => response.json())
-//             .then(data=>{
-//                     displayHourlyForecast(data.list);
-//    })
-//             .catch(err =>{
-//                  console.log(err);
-//                  alert("Error fetching Hourly Forecast weather");
-//    });
-
-}
-
-function displayWeather(data){
-    const tempDivInfo= document.getElementById("temp-div");
-    const weatherInfoDiv= document.getElementById("weather-Info");
-    const weatherIcon= document.getElementById("weather-icon");
-    const hourlyForecastDiv= document.getElementById("hourly-forecast"); 
-
-    weatherInfoDiv.innerHTML="";
-    hourlyForecastDiv.innerHTML="";
-    tempDivInfo.innerHTML="";
-
-    if(data.cod === '404'){
-        weatherInfoDiv.innerHTML=`<p>${data.message}</p>`;
-    }else {
-        const cityname = data.name;
-        const temp=Math.round(data.main.temp - 273.15);
-        const description=data.weather[0].description;
-        const icon=data.weather[0].icon;
-        const icon_url=`https://openweathermap.org/img/wn/${icon}@2x.png`;
-        const tempHTML=`<p>${temp}°C</p>`;
-        const weatherHtml=`<p>${cityname}</p>
-                            <p>${description}</p>`;
-        tempDivInfo.innerHTML=tempHTML;
-        weatherInfoDiv.innerHTML=weatherHtml;
-        weatherIcon.src=icon_url;
-        weatherIcon.alt=description;
-        showImage();
-    }
-}
-
-// function displayHourlyForecast(hourlyData) {
-//     const hourlyForecastDiv=document.getElementById('hourlyForecast');
-//     const next24Hours=hourlyData.slice(0,8);
-//     next24Hours.forEach(item =>{
-//         const dateTime=new Date(item.dt*1000);
-//         const hour=dateTime.getHours();
-//         const temperature=Math.round(item.main.temp - 273.15);
-//         const iconcode=item.weather[0].icon;
-//         const icon_url=`https://openweathermap.org/img/wn/${iconcode}@2x.png`;
-//         const hourlyItemHtml=`<div class="hourly-item">
-//         <span>${hour}:00</span>
-//         <img src="${icon_url}" alt="Hourly Weather Icon">
-//         <span>${temperature}°C</span></div>`;
-//         hourlyForecastDiv.innerHTML+=hourlyItemHtml;
-//     });
-// } 
-
-function showImage(){
-    const weatherIcon=document.getElementById('weather-icon');
-    weatherIcon.style.display="block";
-}
+let weather = {
+    apiKey: "67b92f0af5416edbfe58458f502b0a31",
+    fetchWeather: function (city) {
+      fetch(
+        "https://api.openweathermap.org/data/2.5/weather?q=" +
+          city +
+          "&units=metric&appid=" +
+          this.apiKey
+      )
+        .then((response) => {
+          if (!response.ok) {
+            alert("No weather found.");
+            throw new Error("No weather found.");
+          }
+          return response.json();
+        })
+        .then((data) => this.displayWeather(data));
+    },
+    displayWeather: function (data) {
+      const { name } = data;
+      const { icon, description } = data.weather[0];
+      const { temp, humidity } = data.main;
+      const { speed } = data.wind;
+      document.querySelector(".city").innerText = "Weather in " + name;
+      document.querySelector(".icon").src =
+        "https://openweathermap.org/img/wn/" + icon + ".png";
+      document.querySelector(".description").innerText = description;
+      document.querySelector(".temp").innerText = temp + "°C";
+      document.querySelector(".humidity").innerText =
+        "Humidity: " + humidity + "%";
+      document.querySelector(".wind").innerText =
+        "Wind speed: " + speed + " km/h";
+      document.querySelector(".weather").classList.remove("loading");
+      document.body.style.backgroundImage =
+        "url('https://source.unsplash.com/1600x900/?" + name + "')";
+    },
+    search: function () {
+      this.fetchWeather(document.querySelector(".search-bar").value);
+    },
+  };
+  
+  document.querySelector(".search button").addEventListener("click", function () {
+    weather.search();
+  });
+  
+  document
+    .querySelector(".search-bar")
+    .addEventListener("keyup", function (event) {
+      if (event.key == "Enter") {
+        weather.search();
+      }
+    });
+  
+  weather.fetchWeather("Patna");
+  
