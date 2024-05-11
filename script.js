@@ -51,5 +51,5 @@ let weather = {
       }
     });
   
-  weather.fetchWeather("Patna");
+  weather.fetchWeather("Galle");
   
