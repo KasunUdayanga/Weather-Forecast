@@ -6,7 +6,7 @@ function getWeather(){
         return;
     }
     const currenturl =  `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apikey}`;
-    const forecasturl = `https://pro.openweathermap.org/data/2.5/forecast/hourly?q=${city}&appid=${apikey}`;
+    //const forecasturl = `https://pro.openweathermap.org/data/2.5/forecast/hourly?q=${city}&appid=${apikey}`;
     fetch(currenturl)
             .then(response => response.json())
             .then(data =>{
@@ -17,15 +17,15 @@ function getWeather(){
                 alert("Error fetching weather");
    });
 
-   fetch(forecasturl)
-            .then(response => response.json())
-            .then(data=>{
-                    displayHourlyForecast(data.list);
-   })
-            .catch(err =>{
-                 console.log(err);
-                 alert("Error fetching Hourly Forecast weather");
-   });
+//    fetch(forecasturl)
+//             .then(response => response.json())
+//             .then(data=>{
+//                     displayHourlyForecast(data.list);
+//    })
+//             .catch(err =>{
+//                  console.log(err);
+//                  alert("Error fetching Hourly Forecast weather");
+//    });
 
 }
 
@@ -58,22 +58,22 @@ function displayWeather(data){
     }
 }
 
-function displayHourlyForecast(hourlyData) {
-    const hourlyForecastDiv=document.getElementById('hourlyForecast');
-    const next24Hours=hourlyData.slice(0,8);
-    next24Hours.forEach(item =>{
-        const dateTime=new Date(item.dt*1000);
-        const hour=dateTime.getHours();
-        const temperature=Math.round(item.main.temp - 273.15);
-        const iconcode=item.weather[0].icon;
-        const icon_url=`https://openweathermap.org/img/wn/${iconcode}@2x.png`;
-        const hourlyItemHtml=`<div class="hourly-item">
-        <span>${hour}:00</span>
-        <img src="${icon_url}" alt="Hourly Weather Icon">
-        <span>${temperature}°C</span></div>`;
-        hourlyForecastDiv.innerHTML+=hourlyItemHtml;
-    });
-} 
+// function displayHourlyForecast(hourlyData) {
+//     const hourlyForecastDiv=document.getElementById('hourlyForecast');
+//     const next24Hours=hourlyData.slice(0,8);
+//     next24Hours.forEach(item =>{
+//         const dateTime=new Date(item.dt*1000);
+//         const hour=dateTime.getHours();
+//         const temperature=Math.round(item.main.temp - 273.15);
+//         const iconcode=item.weather[0].icon;
+//         const icon_url=`https://openweathermap.org/img/wn/${iconcode}@2x.png`;
+//         const hourlyItemHtml=`<div class="hourly-item">
+//         <span>${hour}:00</span>
+//         <img src="${icon_url}" alt="Hourly Weather Icon">
+//         <span>${temperature}°C</span></div>`;
+//         hourlyForecastDiv.innerHTML+=hourlyItemHtml;
+//     });
+// } 
 
 function showImage(){
     const weatherIcon=document.getElementById('weather-icon');
